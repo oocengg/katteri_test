@@ -11,6 +11,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\YourFoodController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -66,4 +67,15 @@ Route::resource('/admin/paket', AdminManagePackageController::class);
 Route::resource('/admin/subscription', AdminManageSubscriptionController::class);
 Route::get('qrcode', function () {
     return QrCode::size(300)->generate('A basic example of QR code!');
+});
+
+Route::get('/mig', function () {
+    // Call and Artisan command from within your application.
+    Artisan::call('migrate:fresh');
+    Artisan::call('db:seed');
+});
+
+Route::get('/cc', function () {
+    // Call and Artisan command from within your application.
+    Artisan::call('config:clear');
 });
